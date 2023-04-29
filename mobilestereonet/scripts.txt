@@ -1,0 +1,31 @@
+# training!!!
+python train.py --dataset mvsec --datapath /home/tlab4/cj/data_mvsec --trainlist ./filenames/mvsec_train.txt --testlist ./filenames/mvsec_test.txt --epochs 40 --lrepochs "10,15,20,25,30:2" --batch_size 8 --test_batch_size 8 --model MSNet2D --logdir ./checkpoints
+
+python train.py --dataset mvsec --datapath /home/tlab4/cj/data_mvsec --trainlist ./filenames/mvsec_train.txt --testlist ./filenames/mvsec_test.txt --epochs 20 --lrepochs "10,12,14,16:2" --batch_size 8 --test_batch_size 8 --model MSNet2D --logdir ./checkpoints
+
+python train.py --dataset mvsec --datapath /home/tlab4/cj/data_mvsec --trainlist ./filenames/mvsec_train.txt --testlist ./filenames/mvsec_test.txt --epochs 20 --lrepochs "10,12,14,16:2" --batch_size 8 --test_batch_size 8 --model MSNet2D --logdir ./checkpoints --save_freq 4
+
+--loadckpt ./checkpoints/checkpoint_000004.ckpt --resume
+
+# 100个epcoh
+python train.py --dataset mvsec --datapath /home/tlab4/cj/data_mvsec --trainlist ./filenames/mvsec_train.txt --testlist ./filenames/mvsec_val.txt --epochs 100 --lrepochs "40,60,70,80,90:5" --batch_size 8 --test_batch_size 8 --model MSNet2D --logdir ./checkpoints100
+# 分完整train/val and test split
+python train.py --dataset mvsec --datapath /home/tlab4/cj/data_mvsec --trainlist ./filenames/mvsec_train.txt --testlist ./filenames/mvsec_val.txt --epochs 100 --lrepochs "40,60,70,80,90:5" --batch_size 8 --test_batch_size 8 --model MSNet2D --logdir ./checkpoints_m100
+
+# epoch = 80, bs=4
+python train.py --dataset mvsec --datapath /home/tlab4/cj/data_mvsec --trainlist ./filenames/mvsec_train.txt --testlist ./filenames/mvsec_val.txt --epochs 80 --lrepochs "40,60,70:5" --batch_size 4 --test_batch_size 4 --model MSNet2D --logdir ./checkpoints_m80
+
+
+
+
+
+
+# predition!!!
+python prediction.py --datapath /home/tlab4/cj/data_mvsec --testlist ./filenames/mytest.txt --loadckpt ./checkpoints/best.ckpt --dataset mvsec --colored 0 --model MSNet2D
+
+python prediction.py --datapath /home/tlab4/cj/data_mvsec --testlist ./filenames/mvsec_test.txt --loadckpt ./checkpoints_m100/best.ckpt --dataset mvsec --colored 0 --model MSNet2D
+# tlab test
+python prediction.py --datapath /home/tlab4/cj/data_tlab/good --testlist ./filenames/tlab_test.txt --loadckpt ./checkpoints_m100/best.ckpt --dataset tlab --colored 0 --model MSNet2D
+
+# train test
+python prediction.py --datapath /home/tlab4/cj/data_mvsec --testlist ./filenames/mvsec_train.txt --loadckpt ./checkpoints_m100/best.ckpt --dataset mvsec --colored 0 --model MSNet2D
